@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blockchain Voting System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Panel</h2>
+    <div class="panel">
+      <label for="candidateName">Candidate Name:</label>
+      <input type="text" id="candidateName" placeholder="Enter candidate name">
+      <button>Add Candidate</button>
+
+      <button>Start Voting</button>
+      <button>End Voting</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>Voter Panel</h2>
+    <button id="connectWalletBtn" onclick="connectWallet()" style="margin-bottom: 10px; background-color: #007bff; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+    Connect Wallet
+    </button>
+    <div class="panel">
+      <label for="selfAddress">Your Wallet Address:</label>
+      <input type="text" id="selfAddress" placeholder="0x...">
+      <button>Register Yourself</button>
+
+      <label for="candidateSelect">Choose Candidate:</label>
+      <select id="candidateSelect">
+        <option value="">-- Select a candidate --</option>
+      </select>
+      <button>Vote</button>
+
+      <!-- Buttons -->
+      <button id="viewCandidatesBtn">View All Candidates</button>
+      <button id="getWinnerBtn">Get Winner</button>
+    </div>
+  </div>
+ <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
+
