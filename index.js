@@ -293,12 +293,11 @@ async function vote() {
         const signer = provider.getSigner();
         const contract = new ethers.Contract(contractadd, abi, signer);
         const selectedindex = document.getElementById('candidateSelect').selectedIndex;
-        const selectedcandidate = document.getElementById('candidateSelect').options[selectedindex].value;
-        if (selectedcandidate === '') {
+        if (selectedindex === 0) {
             alert('Please select a candidate');
             return;
         }
-        const tx = await contract.vote(selectedindex);
+        const tx = await contract.vote(selectedindex - 1);
         await tx.wait();
         alert('Voted successfully');
         
