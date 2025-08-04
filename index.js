@@ -201,20 +201,44 @@ async function registerVoter() {
     alert('Error registering voter:' + error);
   }
 }
-async function addCandidate(params) {
+async function addCandidate() {
     const candidatename = document.getElementById('candidateName').value;
     try {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(contractadd, abi, signer);
-    const tx = await contract.addCandidate(candidatename);
-    await tx.wait();
-    alert('Candidate added successfully');
-  } catch (error) {
-    alert('Error adding candidate:' + error);
-  }
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractadd, abi, signer);
+
+        // Add candidate on the blockchain
+        const tx = await contract.addCandidate(candidatename);
+        await tx.wait();
+
+        // Fetch updated candidate list
+        const candidates = await contract.viewAllCandidates();
+
+        // Update dropdown
+        const candidateSelect = document.getElementById('candidateSelect');
+        candidateSelect.innerHTML = ""; // clear old options first
+
+        // Optional: Add default option
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "Select a candidate";
+        candidateSelect.appendChild(defaultOption);
+
+        candidates.forEach(candidate => {
+            const option = document.createElement('option');
+            option.value = candidate.name;
+            option.textContent = candidate.name;
+            candidateSelect.appendChild(option);
+        });
+
+        alert('Candidate added successfully');
+    } catch (error) {
+        alert('Error adding candidate: ' + error.message);
+    }
 }
+
 
 async function startVoting() {
     try {
@@ -268,7 +292,7 @@ async function vote() {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const contract = new ethers.Contract(contractadd, abi, signer);
-        const selectedindex = document.getElementById('candidateSelect').selectedIndex-1;
+        const selectedindex = document.getElementById('candidateSelect').selectedIndex;
         const selectedcandidate = document.getElementById('candidateSelect').options[selectedindex].value;
         if (selectedcandidate === '') {
             alert('Please select a candidate');
