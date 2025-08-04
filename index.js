@@ -298,7 +298,7 @@ async function vote() {
             alert('Please select a candidate');
             return;
         }
-        const tx = await contract.vote(selectedcandidate);
+        const tx = await contract.vote(selectedindex);
         await tx.wait();
         alert('Voted successfully');
         
