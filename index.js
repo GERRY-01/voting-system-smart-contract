@@ -271,3 +271,31 @@ async function vote() {
         alert('Error voting:' + error);
     }
 }
+
+async function viewcandidates(params) {
+    try {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractadd, abi, signer);
+    const candidates = await contract.viewAllCandidates();
+    console.log(candidates);
+    alert(candidates);
+  } catch (error) {
+    alert('Error viewing candidates:' + error);
+  }
+}
+
+async function getWinner(params) {
+    try {
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractadd, abi, signer);
+        const winner = await contract.getWinner();
+        console.log(winner);
+        alert(winner);
+    } catch (error) {
+        alert('Error getting winner:' + error);
+    }
+}
