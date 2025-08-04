@@ -234,3 +234,40 @@ async function endVoting() {
     await tx.wait();
     alert('Voting ended successfully');
 }
+
+async function loadcandidates() {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractadd, abi, signer);
+    const candidates = await contract.viewAllCandidates();
+    const candidateSelect = document.getElementById('candidateSelect');
+    candidates.forEach(candidate => {
+        const option = document.createElement('option');
+        option.value = candidate.name;
+        option.textContent = candidate.name;
+        candidateSelect.appendChild(option);
+    });
+}
+window.addEventListener('load', loadcandidates);
+
+async function vote() {
+    try {
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractadd, abi, signer);
+        const selectedindex = document.getElementById('candidateSelect').selectedIndex-1;
+        const selectedcandidate = document.getElementById('candidateSelect').options[selectedindex].value;
+        if (selectedcandidate === '') {
+            alert('Please select a candidate');
+            return;
+        }
+        const tx = await contract.vote(selectedcandidate);
+        await tx.wait();
+        alert('Voted successfully');
+        
+    } catch (error) {
+        alert('Error voting:' + error);
+    }
+}
