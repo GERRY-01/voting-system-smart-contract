@@ -217,6 +217,7 @@ async function addCandidate(params) {
 }
 
 async function startVoting() {
+    try {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -224,8 +225,12 @@ async function startVoting() {
     const tx = await contract.startVoting();
     await tx.wait();
     alert('Voting started successfully');
+  } catch (error) {
+    alert('Error starting voting:' + error);
+  }
 }
 async function endVoting() {
+    try {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -233,9 +238,13 @@ async function endVoting() {
     const tx = await contract.endVoting();
     await tx.wait();
     alert('Voting ended successfully');
+  } catch (error) {
+    alert('Error ending voting:' + error);
+  }
 }
 
 async function loadcandidates() {
+    try {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -248,8 +257,10 @@ async function loadcandidates() {
         option.textContent = candidate.name;
         candidateSelect.appendChild(option);
     });
+  } catch (error) {
+    alert('Error loading candidates:' + error);
+  }
 }
-window.addEventListener('load', loadcandidates);
 
 async function vote() {
     try {
@@ -299,3 +310,4 @@ async function getWinner(params) {
         alert('Error getting winner:' + error);
     }
 }
+window.addEventListener('load', loadcandidates);
