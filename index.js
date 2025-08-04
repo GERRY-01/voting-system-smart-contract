@@ -1,4 +1,4 @@
-const contractadd = '0x4e02b0789037278ce3909196761f7382578cf105';
+const contractadd = '0xd62b90ae3d5f2f27808a19d7a8d738c517830671';
 const abi = [
 	{
 		"inputs": [
@@ -9,40 +9,6 @@ const abi = [
 			}
 		],
 		"name": "addCandidate",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "endVoting",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "registerVoter",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "startVoting",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_candidateIndex",
-				"type": "uint256"
-			}
-		],
-		"name": "vote",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -86,6 +52,13 @@ const abi = [
 	},
 	{
 		"inputs": [],
+		"name": "endVoting",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "getWinner",
 		"outputs": [
 			{
@@ -95,6 +68,20 @@ const abi = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "registerVoter",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "startVoting",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -120,6 +107,19 @@ const abi = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_candidateIndex",
+				"type": "uint256"
+			}
+		],
+		"name": "vote",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
