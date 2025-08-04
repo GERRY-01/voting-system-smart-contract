@@ -187,3 +187,50 @@ async function connectWallet() {
     alert('MetaMask is not installed');
   }
 }
+
+async function registerVoter() {
+    try {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractadd, abi, signer);
+    const tx = await contract.registerVoter();
+    await tx.wait();
+    alert('Voter registered successfully');
+  } catch (error) {
+    alert('Error registering voter:' + error);
+  }
+}
+async function addCandidate(params) {
+    const candidatename = document.getElementById('candidateName').value;
+    try {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractadd, abi, signer);
+    const tx = await contract.addCandidate(candidatename);
+    await tx.wait();
+    alert('Candidate added successfully');
+  } catch (error) {
+    alert('Error adding candidate:' + error);
+  }
+}
+
+async function startVoting() {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractadd, abi, signer);
+    const tx = await contract.startVoting();
+    await tx.wait();
+    alert('Voting started successfully');
+}
+async function endVoting() {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractadd, abi, signer);
+    const tx = await contract.endVoting();
+    await tx.wait();
+    alert('Voting ended successfully');
+}
